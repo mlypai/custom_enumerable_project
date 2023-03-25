@@ -29,6 +29,21 @@ module Enumerable
   def my_none?(&block)
     !my_any?(&block)
   end
+  
+  def my_count(&block)
+    block_given? ? my_select(&block).length : size
+  end
+
+  def my_map
+    res = self
+    my_each_with_index { |elem, index| res[index] = yield(elem) } if block_given?
+    res
+  end
+
+  def my_inject(num)
+    my_each { |elem| num = yield(num, elem) }
+    num
+  end
 end
 
 # You will first have to define my_each
