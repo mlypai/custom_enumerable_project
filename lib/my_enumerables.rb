@@ -14,6 +14,21 @@ module Enumerable
     my_each { |elem| res.push(elem) if yield(elem) }
     res
   end
+
+
+  def my_all?
+    my_each { |elem| return false unless yield(elem) }
+    true
+  end
+
+  def my_any?
+    my_each { |elem| return true if yield(elem) }
+    false
+  end
+
+  def my_none?(&block)
+    !my_any?(&block)
+  end
 end
 
 # You will first have to define my_each
